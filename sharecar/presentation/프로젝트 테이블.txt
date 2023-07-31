@@ -1,0 +1,51 @@
+등급 테이블
+create table grade(
+g_no number primary key,
+g_detail varchar2(6) check(g_detail in ('common','vip','vvip'))
+);
+
+등급테이블 DML
+insert into grade values (0,'common');
+insert into grade values (1,'vip');
+insert into grade values (2,'vvip');
+
+경고테이블
+create table warning(
+w_no number primary key,
+w_detail varchar2(8) check(w_detail in ('없음','경고','영구정지'))
+);
+
+경고테이블 DML
+insert into warning values(0,'없음');
+insert into warning values(1,'경고');
+insert into warning values(2,'영구정지');
+
+회원테이블
+create table member(
+m_id varchar2(10) primary key,
+m_name varchar2(10) not null,
+m_pass varchar2(20) not null,
+m_gender varchar2(1) check(m_gender in ('m','w')),
+m_age number not null,
+m_nickname varchar2(10) unique
+constraint m_n not null,
+m_point number default 1000
+constraint m_p not null,
+m_email varchar2(20) not null,
+m_phone varchar2(15) not null,
+m_car_license number not null,
+m_addr varchar2(20) not null,
+m_near_addr varchar2(20) not null,
+m_account varchar2(20) not null,
+m_bank varchar2(10) not null,
+m_w_no number default 0
+constraint m_w not null,
+m_g_no number default 0
+constraint m_g not null
+);
+
+관리자모드 DML
+insert into member values ('admin','관리자','admin1234!','m',0,'관리자',default,'없음','없음',0,'없음','없음','없음','없음',default,default);
+
+
+

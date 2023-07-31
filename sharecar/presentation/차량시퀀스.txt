@@ -1,0 +1,143 @@
+차량시퀀스
+create sequence cs
+start with 1
+increment by 1;
+
+차량테이블
+create table car(
+c_no number primary key,
+c_m_id varchar2(10),
+constraint fk_c_id foreign key (c_m_id)
+references member (m_id)
+on delete cascade,
+c_num varchar2(10) unique
+constraint c_n not null,
+c_years number not null,
+c_term number not null,
+c_kind varchar2(20) not null,
+c_value varchar2(2) check(c_value in ('상','중','하')),
+c_date date default sysdate
+);
+
+렌탈시퀀스
+create sequence rs
+start with 1
+increment by 1;
+
+렌탈 테이블
+create table rental(
+r_no number primary key,
+r_c_no number,
+constraint fk_r_no foreign key (r_c_no)
+references car (c_no)
+on delete cascade,
+r_owner_id varchar2(10),
+constraint fk_o_id foreign key (r_owner_id)
+references member (m_id)
+on delete cascade,
+r_user_id varchar2(10),
+constraint fk_u_id foreign key (r_user_id)
+references member(m_id)
+on delete cascade,
+r_date number,
+r_addr varchar2(40)
+);
+
+이벤트 시퀀스
+create sequence es
+start with 1
+increment by 1;
+
+이벤트 테이블
+create table event(
+e_no number primary key,
+e_name varchar2(20) not null,
+e_coupon varchar2(8) not null,
+e_id varchar2(10),
+constraint fk_e_id foreign key (e_id)
+references member (m_id)
+on delete cascade
+);
+
+리뷰시퀀스
+create sequence rvs
+start with 1
+increment by 1;
+
+리뷰테이블
+create table review(
+rv_no number primary key,
+rv_id varchar2(10),
+constraint fk_rv_id foreign key(rv_id)
+references member(m_id)
+on delete cascade,
+rv_car varchar2(20) not null,
+rv_title varchar2(20) not null,
+rv_meno varchar2(100) not null,
+rv_date date default sysdate,
+rv_views number default 0
+);
+
+rv_memo오타 있음...
+
+댓글시퀀스
+create sequence cms
+start with 1
+increment by 1;
+
+댓글테이블
+create table my_comment(
+cm_no number primary key,
+cm_rv_no number,
+constraint fk_rv_no foreign key (cm_rv_no)
+references review (rv_no)
+on delete cascade,
+cm_id varchar2(10),
+constraint fk_cm_id foreign key (cm_id)
+references member(m_id)
+on delete cascade,
+cm_memo varchar2(50) not null,
+cm_date date default sysdate,
+cm_likes number default 0
+);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
